@@ -93,17 +93,6 @@ class WhiteLabelSettingForm extends SettingForm
                             ->helperText(trans('plugins/fob-white-label::white-label.settings.hide_cms_detector_help'))
                             ->toArray()
                     )
-                    ->addBefore(
-                        'white_label_hide_license_activation_info',
-                        'white_label_admin_path',
-                        TextField::class,
-                        TextFieldOption::make()
-                            ->label(trans('plugins/fob-white-label::white-label.settings.admin_path'))
-                            ->defaultValue(setting('white_label_admin_path'))
-                            ->placeholder(app('admin_dir'))
-                            ->helperText(trans('plugins/fob-white-label::white-label.settings.admin_path_help'))
-                            ->toArray()
-                    )
                 ;
             })
             ->add(
@@ -120,6 +109,18 @@ class WhiteLabelSettingForm extends SettingForm
                 AlertFieldOption::make()
                     ->type('warning')
                     ->content(trans('plugins/fob-white-label::white-label.settings.hide_from_settings_alert'))
+                    ->toArray()
+            )
+
+            ->add(
+                'white_label_admin_path_alert',
+                AlertField::class,
+                AlertFieldOption::make()
+                    ->type('info')
+                    ->content(trans('plugins/fob-white-label::white-label.settings.admin_path_alert', [
+                        'path' => $path = 'awesome-secret',
+                        'url' => url($path),
+                    ]))
                     ->toArray()
             )
         ;

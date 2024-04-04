@@ -2,6 +2,8 @@
 
 This plugin allows you to remove the Botble branding from the admin panel.
 
+![](./screenshots/settings.png)
+
 ## Requirements
 
 -   Botble core 7.2.0 or higher.

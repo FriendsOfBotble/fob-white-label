@@ -8,9 +8,7 @@ use Botble\Base\PanelSections\PanelSectionItem;
 use Botble\Base\Supports\ServiceProvider;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Setting\PanelSections\SettingOthersPanelSection;
-use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 
@@ -23,38 +21,11 @@ class WhiteLabelServiceProvider extends ServiceProvider
         $this->setNamespace('plugins/fob-white-label');
 
         rescue(function () {
-            if (setting('white_label_hide_cms_detector')) {
-                config()->set('session.cookie', Str::slug(config('app.name', 'laravel'), '_') . '_session');
-            }
-        }, report: false);
-    }
-
-    public function boot(): void
-    {
-        $this
-            ->loadAndPublishConfigurations(['permissions'])
-            ->loadAndPublishTranslations()
-            ->loadRoutes()
-        ;
-
-        PanelSectionManager::default()->beforeRendering(function () {
-            if (setting('white_label_hide_from_settings', false)) {
-                return;
-            }
-
-            PanelSectionManager::registerItem(
-                SettingOthersPanelSection::class,
-                fn () => PanelSectionItem::make('fob-white-label')
-                    ->setTitle(trans('plugins/fob-white-label::white-label.settings.title'))
-                    ->withIcon('ti ti-tags')
-                    ->withPriority(2001)
-                    ->withDescription(trans('plugins/fob-white-label::white-label.settings.description'))
-                    ->withRoute('white-label.settings')
-            );
-        });
-
-        rescue(function () {
             $data = [];
+
+            if (setting('white_label_hide_cms_detector')) {
+                $data['session.cookie'] = Str::slug(config('app.name', 'laravel'), '_') . '_session';
+            }
 
             if (setting('white_label_hide_license_activation_info')) {
                 $data['core.base.general.hide_activated_license_info'] = true;
@@ -90,13 +61,45 @@ class WhiteLabelServiceProvider extends ServiceProvider
                 });
             }
 
-            $this->app->instance('admin_dir', config()->get('core.base.general.admin_dir'));
+            config($data);
+        }, report: false);
+    }
 
-            if (setting('white_label_admin_path')) {
-                $data['core.base.general.admin_dir'] = setting('white_label_admin_path');
+    public function boot(): void
+    {
+        $this
+            ->loadAndPublishConfigurations(['permissions'])
+            ->loadAndPublishTranslations()
+            ->loadRoutes()
+        ;
+
+        PanelSectionManager::default()->beforeRendering(function () {
+            if (setting('white_label_hide_from_settings', false)) {
+                return;
             }
 
-            config($data);
+            PanelSectionManager::registerItem(
+                SettingOthersPanelSection::class,
+                fn () => PanelSectionItem::make('fob-white-label')
+                    ->setTitle(trans('plugins/fob-white-label::white-label.settings.title'))
+                    ->withIcon('ti ti-tags')
+                    ->withPriority(2001)
+                    ->withDescription(trans('plugins/fob-white-label::white-label.settings.description'))
+                    ->withRoute('white-label.settings')
+            );
+        });
+
+
+        rescue(function () {
+            if (setting('white_label_hide_system_info')) {
+                PanelSectionManagerFacade::group('system')->beforeRendering(function () {
+                    PanelSectionManagerFacade::ignoreItemId('information');
+                });
+
+                Event::listen(RouteMatched::class, function (RouteMatched $event) {
+                    abort_if($event->route->getName() === 'system.info', 404);
+                });
+            }
         }, report: false);
     }
 }

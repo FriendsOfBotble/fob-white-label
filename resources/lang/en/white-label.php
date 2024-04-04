@@ -4,8 +4,6 @@ return [
     'settings' => [
         'title' => 'White Label',
         'description' => 'View and update white label settings',
-        'admin_path' => 'Admin path',
-        'admin_path_help' => 'Let empty to use default admin path. Only allow letters, numbers, dashes and underscores.',
         'hide_license_activation_info' => 'Hide license activation info',
         'hide_license_activation_info_help' => 'Activated license info will be hidden from the settings page. But you must have a valid license key to use this feature.',
         'hide_theme_management' => 'Hide theme management',
@@ -19,5 +17,6 @@ return [
         'hide_cms_detector_help' => 'Hide Botble CMS from extensions like: Built-with, Wappalyzer... When you enable it, you will be signed out, you should be signed in again.',
         'hide_from_settings' => 'Hide "White Label" from settings panel',
         'hide_from_settings_alert' => 'When you enable hide White Label from the settings panel, you should bookmark this page for future access.',
+        'admin_path_alert' => 'If you want to change the admin path, please open your .env file and add this line `ADMIN_DIR=:path` after that your new admin URL is :url.',
     ],
 ];
