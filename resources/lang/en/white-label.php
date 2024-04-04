@@ -13,10 +13,8 @@ return [
         'hide_plugin_author' => 'Hide plugin author',
         'hide_system_updater' => 'Hide system updater',
         'hide_system_info' => 'Hide system information',
-        'hide_cms_detector' => 'Hide Botble CMS detector extensions',
-        'hide_cms_detector_help' => 'Hide Botble CMS from extensions like: Built-with, Wappalyzer... When you enable it, you will be signed out, you should be signed in again.',
         'hide_from_settings' => 'Hide "White Label" from settings panel',
-        'hide_from_settings_alert' => 'When you enable hide White Label from the settings panel, you should bookmark this page for future access.',
+        'hide_from_settings_alert' => 'When you enable this option, it will hide this plugin setting option from settings page, you should bookmark this page for future access.',
         'admin_path_alert' => 'If you want to change the admin path, please open your .env file and add this line `ADMIN_DIR=:path` after that your new admin URL is :url.',
     ],
 ];

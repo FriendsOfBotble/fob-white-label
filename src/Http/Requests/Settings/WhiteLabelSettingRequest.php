@@ -17,7 +17,6 @@ class WhiteLabelSettingRequest extends Request
             'white_label_hide_plugin_author' => new OnOffRule(),
             'white_label_hide_system_updater' => new OnOffRule(),
             'white_label_hide_system_info' => new OnOffRule(),
-            'white_label_hide_cms_detector' => new OnOffRule(),
             'white_label_hide_from_settings' => new OnOffRule(),
         ];
     }

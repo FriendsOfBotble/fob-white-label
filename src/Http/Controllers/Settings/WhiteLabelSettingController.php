@@ -2,9 +2,9 @@
 
 namespace FriendsOfBotble\WhiteLabel\Http\Controllers\Settings;
 
+use Botble\Setting\Http\Controllers\SettingController;
 use FriendsOfBotble\WhiteLabel\Forms\Settings\WhiteLabelSettingForm;
 use FriendsOfBotble\WhiteLabel\Http\Requests\Settings\WhiteLabelSettingRequest;
-use Botble\Setting\Http\Controllers\SettingController;
 
 class WhiteLabelSettingController extends SettingController
 {

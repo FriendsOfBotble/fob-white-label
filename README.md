@@ -2,7 +2,7 @@
 
 This plugin allows you to remove the Botble branding from the admin panel.
 
-![](./screenshots/settings.png)
+![](./screenshots/setting.png)
 
 ## Requirements
 

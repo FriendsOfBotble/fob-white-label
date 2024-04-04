@@ -10,7 +10,6 @@ use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Setting\PanelSections\SettingOthersPanelSection;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Str;
 
 class WhiteLabelServiceProvider extends ServiceProvider
 {
@@ -22,10 +21,6 @@ class WhiteLabelServiceProvider extends ServiceProvider
 
         rescue(function () {
             $data = [];
-
-            if (setting('white_label_hide_cms_detector')) {
-                $data['session.cookie'] = Str::slug(config('app.name', 'laravel'), '_') . '_session';
-            }
 
             if (setting('white_label_hide_license_activation_info')) {
                 $data['core.base.general.hide_activated_license_info'] = true;
@@ -88,7 +83,6 @@ class WhiteLabelServiceProvider extends ServiceProvider
                     ->withRoute('white-label.settings')
             );
         });
-
 
         rescue(function () {
             if (setting('white_label_hide_system_info')) {

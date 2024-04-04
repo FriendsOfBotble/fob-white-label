@@ -4,12 +4,10 @@ namespace FriendsOfBotble\WhiteLabel\Forms\Settings;
 
 use Botble\Base\Forms\FieldOptions\AlertFieldOption;
 use Botble\Base\Forms\FieldOptions\OnOffFieldOption;
-use Botble\Base\Forms\FieldOptions\TextFieldOption;
 use Botble\Base\Forms\Fields\AlertField;
 use Botble\Base\Forms\Fields\OnOffField;
-use Botble\Base\Forms\Fields\TextField;
-use FriendsOfBotble\WhiteLabel\Http\Requests\Settings\WhiteLabelSettingRequest;
 use Botble\Setting\Forms\SettingForm;
+use FriendsOfBotble\WhiteLabel\Http\Requests\Settings\WhiteLabelSettingRequest;
 
 class WhiteLabelSettingForm extends SettingForm
 {
@@ -82,19 +80,6 @@ class WhiteLabelSettingForm extends SettingForm
                     ->defaultValue(setting('white_label_hide_system_info', false))
                     ->toArray()
             )
-            ->when(version_compare(get_cms_version(), '7.3.0', '>='), function (WhiteLabelSettingForm $form) {
-                $form
-                    ->add(
-                        'white_label_hide_cms_detector',
-                        OnOffField::class,
-                        OnOffFieldOption::make()
-                            ->label(trans('plugins/fob-white-label::white-label.settings.hide_cms_detector'))
-                            ->defaultValue(setting('white_label_hide_cms_detector', false))
-                            ->helperText(trans('plugins/fob-white-label::white-label.settings.hide_cms_detector_help'))
-                            ->toArray()
-                    )
-                ;
-            })
             ->add(
                 'white_label_hide_from_settings',
                 OnOffField::class,
